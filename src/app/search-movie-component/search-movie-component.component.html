@@ -1,0 +1,65 @@
+<section class="p-3 mb-2 col-md-7 mx-auto mt-3 bg-gradient-warning text-dark">
+  <div class="row1">
+      <div class="text-light" style="background-color:#555;">
+      <h3 class="text-light" style="padding: 5px 0 5px 15px;">Getting List Of Movies in city</h3>
+      </div>
+  
+  
+  <form #formdata="ngForm" (ngSubmit)="searchName()">
+      <div >
+          <label>Enter Movie name to search</label>
+          <div> 
+          <input type="text" name="movieName" placeholder="Enter Movie Name" [(ngModel)]="movie.movieName" pattern="[a-z]*" class="form-control" #movieName="ngModel"
+          required/>
+          
+          </div>
+          
+          <div class="alert alert-dark mt-3" *ngIf="movieName.invalid && (movieName.dirty || movieName.touched)" >
+        City name should not be null and only alphabets in small letters were allowed
+      </div>
+      <br>
+           <input type="submit" value="Search" [disabled]="!formdata.valid" class="btn btn-success">
+      </div>
+           <diV *ngIf="nameIsEmptyFlag">
+            <h3>Name can't be empty</h3>
+            </diV>
+  
+            </form>
+           
+           
+           <div *ngIf="searchNameFlag">
+           <table border="1"class="table table-bordered table-responsive table-hover">
+        <thead>
+          <tr>
+          <th class="table-primary">Theatre Id</th>
+          <th class="table-primary">Theatre Name</th>  
+          <th class="table-primary">Theatre City</th>  
+          <th class="table-primary">Manager</th>  
+          <th class="table-primary">Contact Info</th>  
+          
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let theatre of theatres">
+              <td class="table-light">{{theatre.theatreId}}</td>  
+              <td class="table-light">{{theatre.theatreName}}</td> 
+              <td class="table-light">{{theatre.theatreCity}}</td>
+              <td class="table-light">{{theatre.managerName}}</td>
+              <td class="table-light">{{theatre.managerContact}}</td>  
+          </tr>
+          <tr>
+            <td colspan="9" align="center">
+              <input type="button" value="Home" (click)="back()" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+           </div>
+           <div *ngIf="errorFlag">
+            <!-- <h3 class="text-danger"> Employee With name {{name}} not found</h3> -->
+            <h3 class="text-danger">OOPS! Movie is not found</h3>
+            <input type="button" (click)="back1()" value="back" />
+            </div>
+    </div>
+      
+  </section>

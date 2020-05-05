@@ -1,0 +1,62 @@
+<section class="p-3 mb-2 col-md-7 mx-auto mt-3 bg-gradient-warning text-dark">
+<div class="row1">
+    <div class="text-light" style="background-color:#555;">
+    <h3 class="text-light" style="padding: 5px 0 5px 15px;">Getting List Of Movies in city</h3>
+    </div>
+
+
+<form #formdata="ngForm" (ngSubmit)="searchMovie()">
+    <div >
+        <label>Enter City name to search</label>
+        <div> 
+        <input type="text" name="theatreCity" placeholder="enter city name" [(ngModel)]="theatre.theatreCity" pattern="[a-z]*" class="form-control" #theatreCity="ngModel"
+        required/>
+        
+        </div>
+        
+        <div class="alert alert-dark mt-3" *ngIf="theatreCity.invalid && (theatreCity.dirty || theatreCity.touched)" >
+      City name should not be null and only alphabets in small letters were allowed
+    </div>
+    <br>
+         <input type="submit" value="Search" [disabled]="!formdata.valid" class="btn btn-success">
+    </div>
+         <diV *ngIf="nameIsEmptyFlag">
+          <h3>Name can't be empty</h3>
+          </diV>
+
+          </form>
+         
+         
+         <div *ngIf="searchNameFlag">
+         <table border="1"class="table table-bordered table-responsive table-hover">
+      <thead>
+        <tr>
+        <th class="table-primary">Movie Id</th>
+        <th class="table-primary">Movie Name</th>  
+        <th class="table-primary">Movie Genre</th>  
+        <th class="table-primary">Movie Director</th>  
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of movies">
+            <td class="table-light">{{m.movieId}}</td>  
+            <td class="table-light">{{m.movieName}}</td> 
+            <td class="table-light">{{m.genre}}</td>
+            <td class="table-light">{{m.director}}</td>
+        </tr>
+        <tr>
+          <td colspan="9" align="right">
+            <input type="button" value="Next" (click)="searching()" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+         </div>
+         <div *ngIf="errorFlag">
+          <h3 class="text-danger">Oops! NO CITY FOUND</h3>
+          <h3 class="text-danger">PRESS BACK BUTTON TO SEARCH AGAIN</h3>
+          <input type="button" (click)="back1()" value="back" />
+          </div>
+  </div>
+    
+</section>
