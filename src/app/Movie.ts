@@ -10,6 +10,7 @@ export class Movie
     hero:String;
     heroine:String;
     listOfTheatres:Theatre[];
+    imageLinks:string
     // constructor(movieId,movieName,genre,director,runtime,hero,heroine,listOfTheatres)
     // {
     //     this.movieId=movieId;

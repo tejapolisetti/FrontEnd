@@ -16,38 +16,35 @@ export class SearchMovieComponentComponent implements OnInit {
   @ViewChild("#formdata")
   form:NgForm;
   searchNameFlag: boolean = false;
+  info:string;
+  errorinfo:string;
 
   nameIsEmptyFlag: boolean = false;
-  errorFlag: boolean = false;
+   /*********************************************************************
+   *  Instance of Movie for manupulation
+   **********************************************************************/
   movie:Movie=new Movie();
     theatres:Theatre[]=[]
 
     constructor(private router: Router,private movieservice:MovieserviceService) { }
     searchName()
     {
-      if (this.movie.movieName == "") {
-        this.nameIsEmptyFlag = true;
-      } else {
-        this.nameIsEmptyFlag = false;
-      }
   
-        this.theatres.splice(0, this.theatres.length);
   
         this.movieservice.searchName(this.movie.movieName).subscribe(data=>
     {
       this.theatres=data
-      if (this.theatres.length === 0) {
-        this.errorFlag = true;
-      } else {
-        this.errorFlag = false;
-
-        this.searchNameFlag = true;
-      }
+      this.info=data
+      this.errorinfo=undefined;
+      this.searchNameFlag = true;
     },
-    error=>
+
+    (error)=>
     {
-      alert("error");
-      console.log("error occured", error);
+      // alert("error");
+      // console.log("error occured", error);
+      this.errorinfo=error.error
+      this.info=undefined
       
     });
  
@@ -61,9 +58,6 @@ export class SearchMovieComponentComponent implements OnInit {
   back() {
     this.searchNameFlag = false;
     this.router.navigate(["/"]);
-  }
-  back1() {
-    this.errorFlag = false;
   }
 
 }

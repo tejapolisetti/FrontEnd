@@ -1,62 +1,58 @@
 <section class="p-3 mb-2 col-md-7 mx-auto mt-3 bg-gradient-warning text-dark">
-<div class="row1">
+  <div class="alert alert-danger" *ngIf="errorinfo != undefined">
+    {{ errorinfo }}
+  </div>
+  <div class="row1">
     <div class="text-light" style="background-color:#555;">
     <h3 class="text-light" style="padding: 5px 0 5px 15px;">Getting List Of Movies in city</h3>
     </div>
-
-
-<form #formdata="ngForm" (ngSubmit)="searchMovie()">
-    <div >
-        <label>Enter City name to search</label>
-        <div> 
-        <input type="text" name="theatreCity" placeholder="enter city name" [(ngModel)]="theatre.theatreCity" pattern="[a-z]*" class="form-control" #theatreCity="ngModel"
-        required/>
-        
-        </div>
-        
-        <div class="alert alert-dark mt-3" *ngIf="theatreCity.invalid && (theatreCity.dirty || theatreCity.touched)" >
-      City name should not be null and only alphabets in small letters were allowed
-    </div>
-    <br>
-         <input type="submit" value="Search" [disabled]="!formdata.valid" class="btn btn-success">
-    </div>
-         <diV *ngIf="nameIsEmptyFlag">
-          <h3>Name can't be empty</h3>
-          </diV>
-
-          </form>
-         
-         
-         <div *ngIf="searchNameFlag">
-         <table border="1"class="table table-bordered table-responsive table-hover">
-      <thead>
-        <tr>
-        <th class="table-primary">Movie Id</th>
-        <th class="table-primary">Movie Name</th>  
-        <th class="table-primary">Movie Genre</th>  
-        <th class="table-primary">Movie Director</th>  
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let m of movies">
-            <td class="table-light">{{m.movieId}}</td>  
-            <td class="table-light">{{m.movieName}}</td> 
-            <td class="table-light">{{m.genre}}</td>
-            <td class="table-light">{{m.director}}</td>
-        </tr>
-        <tr>
-          <td colspan="9" align="right">
-            <input type="button" value="Next" (click)="searching()" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-         </div>
-         <div *ngIf="errorFlag">
-          <h3 class="text-danger">Oops! NO CITY FOUND</h3>
-          <h3 class="text-danger">PRESS BACK BUTTON TO SEARCH AGAIN</h3>
-          <input type="button" (click)="back1()" value="back" />
+    <form #formdata="ngForm" (ngSubmit)="searchMovie()">
+      <div >
+          <label>Enter City name to search</label>
+          <div> 
+          <input type="text" name="theatreCity" placeholder="enter city name" [(ngModel)]="theatre.theatreCity" pattern="[a-z]*" class="form-control" #theatreCity="ngModel"
+          required/>
+          
           </div>
+          
+          <div class="alert alert-dark mt-3" *ngIf="theatreCity.invalid && (theatreCity.dirty || theatreCity.touched)" >
+        City name should not be null and only alphabets in small letters were allowed
+      </div>
+      <br>
+           <input type="submit" value="Search" [disabled]="!formdata.valid" class="btn btn-success">
+      </div>
+  
+            </form>
+            <div class="movies row flex-wrap justify-content-around"  >
+    <div class="card shadow rounded p-1 col-sm-3 m-2" *ngFor="let movie of movies">
+      <img class="card-img-top " src="{{movie.imageLinks}}" alt="Image">
+      <div class="card-body bg-light ">
+        
+          <h5 class="card-title large">{{movie.movieName}}</h5>
+          <hr class="m-0"/>
+          <div class="m-2 d-flex justify-content-between">
+              <div class="box">
+                  <small class=" small">Hero</small>
+                  <div class="">{{movie.hero}}</div>
+              </div>
+              <div class="box">
+                  <small>Heroine</small>
+                  <div>{{movie.heroine}}</div>
+              </div>
+              <div class="box">
+                  <small>Director</small>
+                  <!-- <p>sujeeth</p> -->
+                  <div>{{movie.director}}</div>
+              </div>
+          </div>
+          <div class="action d-flex justify-content-end">
+              <div class="w-50 btn btn-sm bg-transparent text-center">
+              <input type="button" value="Home" (click)="back()" class="btn btn-secondary" />
+              </div>
+              <input type="button" value="Next" (click)="searching()" class="btn btn-primary" />
+          </div>
+      </div>
   </div>
-    
-</section>
+</div>
+
+
